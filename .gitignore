@@ -1,0 +1,23 @@
+# Ignorar entorno virtual de Python
+venv/
+*.pyc
+__pycache__/
+
+# Ignorar dependencias de Node.js
+frontend/node_modules/
+frontend/build/ # La carpeta de build de React
+
+# Ignorar archivos específicos de OS
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de base de datos SQLite si existieran (aunque usas MySQL)
+db.sqlite3
+
+# Ignorar archivos de settings locales o sensibles (OPCIONAL, lee la nota abajo)
+# local_settings.py # Si usas un archivo de settings local
+# .env # Si usas archivos .env para variables de entorno
+
+# Archivos y carpetas generados por Django
+media/ # Si no quieres subir archivos subidos por usuarios
+static/ # Si no quieres subir archivos estáticos compilados
