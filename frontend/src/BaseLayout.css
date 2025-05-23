@@ -1,0 +1,11 @@
+/* frontend/src/BaseLayout.css */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Asegura que ocupe al menos toda la altura de la vista */
+}
+
+.main-content {
+  flex-grow: 1; /* Permite que el contenido ocupe el espacio disponible entre header y footer */
+  padding: 20px; /* Un poco de padding para el contenido */
+}

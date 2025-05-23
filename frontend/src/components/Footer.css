@@ -1,0 +1,23 @@
+/* frontend/src/components/Footer.css */
+.main-footer {
+  background-color: #333;
+  color: white;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  margin-top: auto; /* Para que el footer se quede abajo en el layout */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.footer-links {
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: #a0a0a0;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.footer-links a:hover {
+  color: white;
+}
