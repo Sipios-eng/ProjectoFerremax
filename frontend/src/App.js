@@ -1,7 +1,7 @@
 // frontend/src/App.js
 
 import React from 'react';
-import BaseLayout from './BaseLayout'; // Importamos el componente de layout base
+import BaseLayout from './components/Layout/BaseLayout'; // Importamos el componente de layout base
 import ItemList from './components/ItemList'; // Tu componente ItemList
 import './App.css'; // Mantén o modifica tus estilos CSS generales de App.js
 

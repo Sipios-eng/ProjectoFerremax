@@ -1,8 +1,8 @@
 // frontend/src/BaseLayout.js
 
 import React from 'react';
-import Header from './components/Header'; // Importamos el Header
-import Footer from './components/Footer'; // Importamos el Footer
+import Header from './Header'; // Importamos el Header
+import Footer from './Footer'; // Importamos el Footer
 import './BaseLayout.css'; // Opcional: para estilos generales del layout
 
 function BaseLayout({ children }) {
