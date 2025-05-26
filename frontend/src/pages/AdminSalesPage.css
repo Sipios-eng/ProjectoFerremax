@@ -1,0 +1,93 @@
+/* frontend/src/pages/AdminSalesPage.css */
+
+.admin-sales-container {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.admin-sales-container h2 {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2.2rem;
+}
+
+.sales-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.sales-table th,
+.sales-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.sales-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  color: #555;
+}
+
+.sales-table tbody tr:nth-child(even) {
+  background-color: #fefefe;
+}
+
+.sales-table tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+/* Botones dentro de la tabla */
+.sales-table .btn {
+  padding: 6px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 1px solid transparent;
+  margin-right: 5px; /* Espacio entre botones */
+}
+
+.sales-table .btn-info {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.sales-table .btn-info:hover {
+  background-color: #138496;
+}
+
+.sales-table .btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.sales-table .btn-danger:hover {
+  background-color: #c82333;
+}
+
+.loading-message, .error-message {
+  text-align: center;
+  padding: 20px;
+  margin-top: 50px;
+  background-color: #d1ecf1; /* Light blue */
+  color: #0c5460; /* Dark blue */
+  border: 1px solid #bee5eb; /* Border blue */
+  border-radius: 5px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.error-message {
+  background-color: #f8d7da; /* Light red */
+  color: #721c24; /* Dark red */
+  border-color: #f5c6cb; /* Border red */
+}

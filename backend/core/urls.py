@@ -10,4 +10,5 @@ urlpatterns = [
     path('producto/<int:pk>/', ProductRetrieveUpdateDestroyAPIView.as_view(), name='product-detail-update-delete'),
     path('marcas/', MarcaListAPIView.as_view(), name='marca-list'),        # NUEVA RUTA
     path('tipos-producto/', TipoProductoListAPIView.as_view(), name='tipo-producto-list'), # NUEVA RUTA
+    
 ]

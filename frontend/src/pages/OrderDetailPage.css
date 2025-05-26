@@ -1,0 +1,133 @@
+/* frontend/src/pages/OrderDetailPage.css */
+
+.order-detail-container {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.order-detail-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2.2rem;
+}
+
+.order-summary-card,
+.order-shipping-card,
+.order-items,
+.admin-actions {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.order-summary-card p,
+.order-shipping-card p {
+  margin: 8px 0;
+  color: #555;
+  font-size: 1.1rem;
+}
+
+.order-summary-card p strong {
+  color: #333;
+}
+
+.order-summary-card .order-status {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  display: inline-block; /* Para que el padding y color se vean bien */
+}
+
+/* Colores para los estados de pedido (ejemplos) */
+.order-status.pendiente { background-color: #ffc107; color: #333; } /* Amarillo */
+.order-status.confirmado { background-color: #17a2b8; } /* Azul */
+.order-status.en-proceso { background-color: #007bff; } /* Azul oscuro */
+.order-status.enviado { background-color: #28a745; } /* Verde */
+.order-status.completado { background-color: #6c757d; } /* Gris */
+.order-status.cancelado { background-color: #dc3545; } /* Rojo */
+
+
+.order-shipping-card h3,
+.order-detail-container h3 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.6rem;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px dashed #eee;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.order-item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-right: 15px;
+  border: 1px solid #e9e9e9;
+  border-radius: 5px;
+}
+
+.order-item-details {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.order-item-details h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.order-item-details p {
+  margin: 3px 0;
+  color: #666;
+}
+
+.view-product-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+.view-product-link:hover {
+  text-decoration: underline;
+}
+
+.back-btn {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 30px;
+  transition: background-color 0.3s ease;
+}
+
+.back-btn:hover {
+  background-color: #5a6268;
+}
+
+.admin-actions {
+  background-color: #e6f7ff;
+  border-color: #91d5ff;
+}

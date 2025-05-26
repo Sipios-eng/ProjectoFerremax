@@ -1,0 +1,243 @@
+/* frontend/src/pages/CartPage.css */
+
+.cart-container {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cart-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2.2rem;
+}
+
+.cart-page-message {
+  text-align: center;
+  margin-top: 100px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cart-page-message h2 {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.cart-page-message p {
+  color: #777;
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
+.cart-page-message .btn-primary {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.cart-items {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  background-color: #fdfdfd;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-item-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-right: 20px;
+  border: 1px solid #e9e9e9;
+  border-radius: 5px;
+}
+
+.cart-item-details {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.cart-item-details h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.cart-item-details p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.quantity-controls button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+
+.quantity-controls button:hover {
+  background-color: #e0e0e0;
+}
+
+.quantity-controls input {
+  width: 50px;
+  text-align: center;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.remove-item-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.remove-item-btn:hover {
+  background-color: #c82333;
+}
+
+.cart-summary {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: right;
+  margin-bottom: 30px;
+}
+
+.cart-summary h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.cart-summary p {
+  font-size: 1.1rem;
+  margin: 8px 0;
+}
+
+.cart-summary .clear-cart-btn {
+  background-color: #ffc107; /* Warning color */
+  color: #333;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.cart-summary .clear-cart-btn:hover {
+  background-color: #e0a800;
+}
+
+.checkout-section {
+  background-color: #f0f8ff;
+  padding: 25px;
+  border-radius: 8px;
+  border: 1px solid #cce5ff;
+}
+
+.checkout-section h3 {
+  color: #0056b3;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.checkout-section .form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.checkout-section label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #444;
+}
+
+.checkout-section select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: white;
+}
+
+.checkout-section .checkout-btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.checkout-section .checkout-btn:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.checkout-section .checkout-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+  text-align: center;
+}

@@ -6,7 +6,7 @@ import ProductList from '../components/products/ProductList'; // <-- Importa el 
 function ProductsPage() {
   return (
     <div>
-      <h1 style={{ textAlign: 'center', padding: '20px 0' }}>Nuestros Productos Ferremax</h1>
+      <h1 style={{ textAlign: 'center', padding: '20px 0' }}>Nuestros Productos Ferremas</h1>
       <ProductList /> {/* <-- Renderiza el NUEVO ProductList */}
     </div>
   );
