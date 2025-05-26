@@ -1,0 +1,88 @@
+/* frontend/src/pages/RegisterPage.css (Puedes copiar gran parte de LoginPage.css) */
+
+.register-container {
+  max-width: 500px; /* Un poco más ancho para más campos */
+  margin: 80px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.register-container h2 {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.register-form .form-group {
+  margin-bottom: 15px; /* Un poco menos de margen */
+  text-align: left;
+}
+
+.register-form label {
+  display: block;
+  margin-bottom: 5px; /* Menos margen */
+  font-weight: bold;
+  color: #555;
+}
+
+.register-form input[type="text"],
+.register-form input[type="email"],
+.register-form input[type="password"] {
+  width: calc(100% - 20px);
+  padding: 10px; /* Menos padding */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.register-form input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+.register-form button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background-color: #28a745; /* Un color diferente para el registro */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.register-form button[type="submit"]:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.register-form button[type="submit"]:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.success-message {
+  color: #28a745;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+}

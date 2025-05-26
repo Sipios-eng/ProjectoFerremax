@@ -1,0 +1,97 @@
+/* frontend/src/pages/UserFormPage.css (Puedes copiar/adaptar de RegisterPage.css o ProductFormPage.css) */
+
+.user-form-container {
+  max-width: 600px; /* Ancho similar al de registro/producto */
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.user-form-container h2 {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.user-form .form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.user-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.user-form input[type="text"],
+.user-form input[type="email"],
+.user-form input[type="password"],
+.user-form select {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.user-form input:focus,
+.user-form select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+.user-form .checkbox-group {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.user-form .checkbox-group input[type="checkbox"] {
+  margin-right: 10px;
+  width: auto; /* Anula el width: 100% */
+}
+
+.user-form .checkbox-group label {
+  margin-bottom: 0;
+}
+
+.user-form button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background-color: #007bff; /* Color para el botón de guardar */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.user-form button[type="submit"]:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.user-form button[type="submit"]:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+}

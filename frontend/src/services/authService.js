@@ -80,6 +80,18 @@ const authService = {
       throw error;
     }
   },
+  
+  register: async (userData) => {
+    try {
+      // Envía los datos del usuario al endpoint de registro
+      const response = await api.post('register/', userData);
+      // No se espera un token, solo la confirmación de registro
+      return response.data; // Devuelve los datos del usuario creado
+    } catch (error) {
+      console.error('Error durante el registro:', error.response?.data || error.message);
+      throw error;
+    }
+  },
 };
 
 export default authService;
