@@ -24,20 +24,52 @@ const productService = {
       throw error;
     }
   },
+  createProduct: async (productData) => {
+     const response = await api.post('producto/', productData);
+     return response.data;
+  },
 
-  // Podrías añadir funciones para el CRUD completo aquí:
-  // createProduct: async (productData) => {
-  //   const response = await api.post('producto/', productData);
-  //   return response.data;
-  // },
-  // updateProduct: async (id, productData) => {
-  //   const response = await api.put(`producto/${id}/`, productData);
-  //   return response.data;
-  // },
-  // deleteProduct: async (id) => {
-  //   const response = await api.delete(`producto/${id}/`);
-  //   return response.data;
-  // },
+  updateProduct: async (id, productData) => {
+    try {
+      // Envía los datos actualizados del producto a la API
+      const response = await api.put(`producto/${id}/`, productData); // Usamos PUT
+      return response.data; // Devuelve el producto actualizado
+    } catch (error) {
+      console.error(`Error updating product with ID ${id}:`, error);
+      throw error;
+    }
+  },
+
+  deleteProduct: async (id) => {
+    try {
+      // Envía una petición DELETE para eliminar el producto
+      await api.delete(`producto/${id}/`);
+      return { message: 'Producto eliminado exitosamente.' }; // No hay datos de respuesta en 204 No Content
+    } catch (error) {
+      console.error(`Error deleting product with ID ${id}:`, error);
+      throw error;
+    }
+  },
+
+  getAllMarcas: async () => {
+    try {
+      const response = await api.get('marcas/'); // <-- URL de tu API de Marcas
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching marcas:', error);
+      throw error;
+    }
+  },
+  
+  getAllTiposProducto: async () => {
+    try {
+      const response = await api.get('tipos-producto/'); // <-- URL de tu API de Tipos de Producto
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching tipos de producto:', error);
+      throw error;
+    }
+  },
 };
 
 export default productService;

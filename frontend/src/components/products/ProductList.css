@@ -1,12 +1,13 @@
 /* frontend/src/components/products/ProductList.css */
+/* Estilos generales para la lista de productos del usuario */
 
 .product-list-container {
-  display: grid; /* Usamos CSS Grid para un layout de cuadrícula */
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas */
-  gap: 25px; /* Espacio entre las tarjetas de producto */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
   padding: 30px;
-  max-width: 1200px; /* Ancho máximo para centrar el contenido */
-  margin: 0 auto; /* Centrar la cuadrícula */
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .product-card {
@@ -14,24 +15,26 @@
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  overflow: hidden; /* Para que la imagen no se salga del borde redondeado */
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centra el contenido horizontalmente */
-  padding-bottom: 15px; /* Espacio inferior dentro de la tarjeta */
+  align-items: center;
+  padding-bottom: 15px;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .product-card:hover {
-  transform: translateY(-5px); /* Pequeño efecto al pasar el mouse */
+  transform: translateY(-5px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .product-image {
-  width: 100%; /* La imagen ocupa todo el ancho de la tarjeta */
-  max-height: 200px; /* Altura fija para las imágenes */
-  object-fit: contain; /* Recorta la imagen para que cubra el espacio sin distorsionarse */
+  width: 100%;
+  max-height: 200px; /* Asegura que las imágenes no se distorsionen */
+  object-fit: contain; /* O 'cover' si prefieres recortar con 'object-position' */
+  object-position: center; /* Centra la imagen */
   border-bottom: 1px solid #f0f0f0;
+  padding: 5px; /* Pequeño padding si usas 'contain' para que no se pegue al borde */
 }
 
 .product-card h3 {
@@ -39,10 +42,10 @@
   color: #333;
   margin: 15px 10px 5px 10px;
   text-align: center;
-  overflow: hidden; /* Oculta texto que desborda */
-  text-overflow: ellipsis; /* Añade puntos suspensivos */
-  white-space: nowrap; /* Mantiene el texto en una sola línea */
-  width: calc(100% - 20px); /* Ajusta el ancho para el padding */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: calc(100% - 20px);
 }
 
 .product-card p {
@@ -50,20 +53,20 @@
   color: #666;
   margin: 0 15px 10px 15px;
   text-align: center;
-  flex-grow: 1; /* Permite que la descripción ocupe el espacio disponible */
+  flex-grow: 1;
 }
 
 .product-price {
   font-size: 1.4rem;
   font-weight: bold;
-  color: #007bff; /* Un color de acento para el precio */
+  color: #007bff;
   margin-top: 10px;
   padding: 0 15px;
   width: 100%;
   text-align: center;
 }
 
-/* Media queries para responsividad */
+/* Media queries para responsividad (mantén si quieres) */
 @media (max-width: 768px) {
   .product-list-container {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -74,7 +77,7 @@
 
 @media (max-width: 480px) {
   .product-list-container {
-    grid-template-columns: 1fr; /* Una sola columna en pantallas muy pequeñas */
+    grid-template-columns: 1fr;
     gap: 15px;
     padding: 15px;
   }

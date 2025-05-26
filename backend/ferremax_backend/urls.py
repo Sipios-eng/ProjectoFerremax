@@ -1,3 +1,4 @@
+#backend/ferremax_backend/urls.py
 """
 URL configuration for ferremax_backend project.
 
@@ -15,12 +16,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # backend/ferremax_backend/urls.py
+# backend/ferremax_backend/urls.py
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_simplejwt.views import (
+    # TokenObtainPairView, # NO importes TokenObtainPairView directamente de rest_framework_simplejwt.views si vas a usar un serializer personalizado
+    TokenRefreshView,
+    TokenVerifyView,
+)
+from rest_framework_simplejwt.views import TokenObtainPairView # <-- Importa la vista base para poder pasarle el serializer
+from core.serializers import MyTokenObtainPairSerializer # <-- YA LO TENEMOS IMPORTADO
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Incluye las URLs de tu app 'core' bajo el prefijo 'api/'
     path('api/', include('core.urls')),
-    # Puedes agregar otras inclusiones de URL aquí
+
+    # Rutas para JWT Authentication
+    # ¡CAMBIA ESTA LÍNEA!
+    path('api/token/', TokenObtainPairView.as_view(serializer_class=MyTokenObtainPairSerializer), name='token_obtain_pair'), # <-- ASÍ DEBE SER
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]

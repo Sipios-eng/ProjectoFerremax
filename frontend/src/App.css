@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.create-new-button {
+  display: inline-block;
+  padding: 12px 20px;
+  background-color: #28a745; /* Color verde para "Crear" */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.create-new-button:hover {
+  background-color: #218838;
+}

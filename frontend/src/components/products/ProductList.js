@@ -1,10 +1,11 @@
-// frontend/src/components/products/ProductList.js
+// frontend/src/components/products/ProductList.js (PARA USUARIO NORMAL)
 
 import React, { useEffect, useState } from 'react';
-import productService from '../../services/productService'; // Asegúrate de la ruta correcta
-import './ProductList.css'; // Si renombraste ItemList.css a ProductList.css
+// No necesitamos Link ni useNavigate aquí si no hay botones de acción
+import productService from '../../services/productService';
+import './ProductList.css'; // Usará un CSS más simple
 
-function ProductList() {
+function ProductList() { // Este es el ProductList para el usuario final
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +17,6 @@ function ProductList() {
         setProducts(data);
       } catch (err) {
         setError('No se pudieron cargar los productos. Por favor, intenta de nuevo más tarde.');
-        // Muestra el error completo en la consola para depuración
         console.error('Error al obtener productos:', err.response ? err.response.data : err.message);
       } finally {
         setLoading(false);
@@ -24,7 +24,7 @@ function ProductList() {
     };
 
     fetchProducts();
-  }, []); // El array vacío [] asegura que el efecto se ejecute solo una vez al montar el componente
+  }, []);
 
   if (loading) {
     return <div style={{ textAlign: 'center', padding: '20px' }}>Cargando productos...</div>;
@@ -39,16 +39,17 @@ function ProductList() {
   }
 
   return (
-    <div className="product-list-container"> {/* Renombrado de item-list-container */}
+    <div className="product-list-container"> {/* Reutilizamos la misma clase si los estilos base son similares */}
       {products.map(product => (
-        <div key={product.id} className="product-card"> {/* Renombrado de item-card */}
+        <div key={product.id} className="product-card">
           {product.imagen_url && (
             <img src={product.imagen_url} alt={product.nombre} className="product-image" />
           )}
-          <h3>{product.nombre}</h3> {/* Usamos 'nombre' según tu modelo Django */}
-          <p>{product.descripcion}</p> {/* Usamos 'descripcion' */}
-          <p className="product-price">Precio: ${product.precio}</p> {/* Usamos 'precio' */}
-          {/* Puedes añadir más detalles como marca, tipo_producto, cantidad_disponible, etc. */}
+          <h3>{product.nombre}</h3>
+          <p>{product.descripcion}</p>
+          <p className="product-price">Precio: ${product.precio}</p>
+          {/* AQUÍ NO HAY BOTONES DE EDITAR/ELIMINAR */}
+          {/* Puedes añadir un botón "Ver Detalle" o "Añadir al Carrito" aquí */}
         </div>
       ))}
     </div>

@@ -43,3 +43,21 @@
 .nav-link:hover {
   color: #f0f0f0;
 }
+
+
+
+.nav-link.logout-button {
+  background: none;
+  border: none;
+  color: #fff; /* O el color de tu texto normal en el nav */
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0; /* Para que se vea como un enlace normal */
+  margin: 0;
+  text-decoration: none; /* Asegura que no tenga subrayado por defecto de botón */
+  transition: color 0.3s ease;
+}
+
+.nav-link.logout-button:hover {
+  color: #f8f8f8; /* O el color de hover que uses para tus enlaces */
+}
