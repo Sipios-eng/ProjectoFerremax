@@ -29,7 +29,8 @@ import NotFoundPage from './pages/NotFoundPage';
 import UserOrdersPage from './pages/UserOrdersPage';
 import OrderDetailPage from './pages/OrderDetailPage';
 import AdminSalesPage from './pages/AdminSalesPage';
-import UserAddressesPage from './pages/UserAddressesPage'; // <-- NUEVA IMPORTACIÓN
+import UserAddressesPage from './pages/UserAddressesPage';
+import AdminOrderDetailPage from './pages/AdminOrderDetailPage'; // <-- NUEVA IMPORTACIÓN
 
 function App() {
   return (
@@ -50,7 +51,7 @@ function App() {
               <Route element={<ProtectedRoute allowedRoles={['user', 'admin']} />}>
                  <Route path="/mis-pedidos" element={<UserOrdersPage />} />
                  <Route path="/pedidos/:id" element={<OrderDetailPage />} />
-                 <Route path="/perfil/direcciones" element={<UserAddressesPage />} /> {/* <--- AÑADIDA ESTA RUTA */}
+                 <Route path="/perfil/direcciones" element={<UserAddressesPage />} />
               </Route>
 
               {/* Rutas Protegidas para Administradores */}
@@ -66,6 +67,8 @@ function App() {
                 <Route path="/admin/users/edit/:id" element={<UserFormPage />} />
                 {/* Rutas de Ventas */}
                 <Route path="/admin/ventas" element={<AdminSalesPage />} />
+                {/* NUEVA RUTA PARA DETALLES DE VENTA */}
+                <Route path="/admin/ventas/:id" element={<AdminOrderDetailPage />} /> {/* <-- AÑADIDA ESTA RUTA */}
               </Route>
 
               {/* Ruta para Not Found */}

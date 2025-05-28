@@ -72,7 +72,7 @@ function OrderDetailPage() {
         ) : (
           order.detalles.map((item) => (
             <div key={item.id} className="order-item">
-              <img src={item.producto.imagen_url} alt={item.producto_nombre} className="order-item-image" />
+              <img src={item.producto_imagen_url} alt={item.producto_nombre} className="order-item-image" />
               <div className="order-item-details">
                 <h4>{item.producto_nombre}</h4>
                 <p>Cantidad: {item.cantidad}</p>

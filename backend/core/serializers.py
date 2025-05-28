@@ -188,6 +188,7 @@ class VentaSerializer(serializers.ModelSerializer):
     pedido_id = serializers.IntegerField(source='pedido.id', read_only=True) # <-- ESTA ES LA MODIFICACIÓN
     metodo_pago_nombre = serializers.CharField(source='metodo_pago.metodo', read_only=True)
     usuario_username = serializers.CharField(source='pedido.usuario.username', read_only=True)
+    detalle_pedido_set = DetallePedidoSerializer(source='pedido.detallepedido_set', many=True, read_only=True)
     # También podemos añadir el estado del pedido asociado a la venta
     pedido_estado = serializers.CharField(source='pedido.estado.estado', read_only=True)
 
@@ -226,3 +227,9 @@ class HistorialPreciosSerializer(serializers.ModelSerializer):
     class Meta:
         model = HistorialPrecios
         fields = '__all__'
+
+class ProductoMinSerializer(serializers.ModelSerializer):
+    # Un serializer mínimo para DetallePedido, si no quieres todos los campos del producto
+    class Meta:
+        model = Producto
+        fields = ['id', 'nombre', 'precio'] # Incluye solo los campos necesarios

@@ -1,20 +1,20 @@
 // frontend/src/pages/AdminSalesPage.js
 
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // <-- Importa useNavigate
 import api from '../services/api';
-import { useAuth } from '../context/AuthContext'; // Aunque ya está protegido por ruta, es buena práctica
-import './AdminSalesPage.css'; // Crea un CSS para esta página
+import { useAuth } from '../context/AuthContext';
+import './AdminSalesPage.css';
 
 function AdminSalesPage() {
   const [sales, setSales] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { isAdmin } = useAuth(); // Para asegurar que es admin (aunque la ruta ya lo protege)
+  const { isAdmin } = useAuth();
+  const navigate = useNavigate(); // <-- Instancia useNavigate
 
   useEffect(() => {
     if (!isAdmin()) {
-      // Esto realmente no debería pasar si ProtectedRoute funciona, pero es una capa extra.
       setLoading(false);
       setError('Acceso denegado. Solo administradores pueden ver las ventas.');
       return;
@@ -24,7 +24,7 @@ function AdminSalesPage() {
       setLoading(true);
       setError(null);
       try {
-        const response = await api.get('/ventas/'); // Endpoint para todas las ventas
+        const response = await api.get('/ventas/');
         setSales(response.data);
       } catch (err) {
         console.error('Error fetching sales:', err);
@@ -36,17 +36,17 @@ function AdminSalesPage() {
     fetchSales();
   }, [isAdmin]);
 
-  // Función para obtener el detalle de un pedido asociado a una venta (puedes implementarlo o usar OrderDetailPage)
-  const handleViewSaleDetails = (pedidoId) => {
-    // Redirige a la página de detalle de pedido, que ya muestra los productos
-    window.open(`/pedidos/${pedidoId}`, '_blank'); // Abrir en nueva pestaña
+  // Función para redirigir a la nueva página de detalle de venta/pedido
+  const handleViewSaleDetails = (saleId) => { // Cambiado a saleId para ver detalles de la venta
+    // Usamos navigate para ir a la nueva ruta que crearemos
+    navigate(`/admin/ventas/${saleId}`); // <-- CAMBIO CLAVE AQUÍ
   };
 
   const handleDeleteSale = async (saleId) => {
     if (window.confirm('¿Estás seguro de que quieres eliminar esta venta? Esto no revertirá el stock ni el pedido asociado.')) {
       try {
         await api.delete(`/ventas/${saleId}/`);
-        setSales(sales.filter(sale => sale.id !== saleId)); // Actualiza la lista sin recargar
+        setSales(sales.filter(sale => sale.id !== saleId));
         alert('Venta eliminada con éxito.');
       } catch (err) {
         console.error('Error deleting sale:', err.response?.data || err.message);
@@ -54,7 +54,6 @@ function AdminSalesPage() {
       }
     }
   };
-
 
   if (loading) return <div className="loading-message">Cargando ventas...</div>;
   if (error) return <div className="error-message">{error}</div>;
@@ -87,7 +86,8 @@ function AdminSalesPage() {
                 <td>${parseFloat(sale.monto).toFixed(2)}</td>
                 <td>{new Date(sale.fecha_transaccion).toLocaleString()}</td>
                 <td>
-                  <button onClick={() => handleViewSaleDetails(sale.pedido_id)} className="btn btn-info btn-sm">Ver Pedido</button>
+                  {/* CAMBIAR onClick para usar handleViewSaleDetails con sale.id */}
+                  <button onClick={() => handleViewSaleDetails(sale.id)} className="btn btn-info btn-sm">Ver Detalles Venta</button>
                   <button onClick={() => handleDeleteSale(sale.id)} className="btn btn-danger btn-sm">Eliminar Venta</button>
                 </td>
               </tr>
