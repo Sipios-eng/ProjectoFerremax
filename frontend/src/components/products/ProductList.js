@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // Necesitamos Link para ir al detalle del producto
 import productService from '../../services/productService';
 import { useCart } from '../../context/CartContext'; // Importa el hook del carrito
-import './ProductList.css';
+import { formatCLP } from '../../utils/currencyFormatter';
+import './ProductList.css'; 
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -57,7 +58,7 @@ function ProductList() {
           </Link>
           <div className="product-info"> {/* Agregado un div para info, como en el ProductCard que sugerí */}
             <h3>{product.nombre}</h3>
-            <p className="product-price">Precio: ${parseFloat(product.precio).toFixed(2)}</p>
+            <p className="product-price">Precio: {formatCLP(parseFloat(product.precio))}</p>
             <p className="product-stock">Stock: {product.cantidad_disponible}</p> {/* Mostrar stock */}
 
             {/* Botón Añadir al Carrito */}

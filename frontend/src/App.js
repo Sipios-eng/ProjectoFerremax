@@ -7,7 +7,9 @@ import './App.css';
 
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
+import { CurrencyProvider } from './context/CurrencyContext';
 import ProtectedRoute from './components/Common/ProtectedRoute';
+
 
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
@@ -37,44 +39,46 @@ function App() {
     <Router>
       <AuthProvider>
         <CartProvider>
-          <BaseLayout>
-            <Routes>
-              {/* Rutas Públicas */}
-              <Route path="/" element={<HomePage />} />
-              <Route path="/productos" element={<ProductsPage />} />
-              <Route path="/productos/:id" element={<ProductDetailPage />} />
-              <Route path="/carrito" element={<CartPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
+          <CurrencyProvider>
+            <BaseLayout>
+              <Routes>
+                {/* Rutas Públicas */}
+                <Route path="/" element={<HomePage />} />
+                <Route path="/productos" element={<ProductsPage />} />
+                <Route path="/productos/:id" element={<ProductDetailPage />} />
+                <Route path="/carrito" element={<CartPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
 
-              {/* Rutas Protegidas para Usuarios Logueados */}
-              <Route element={<ProtectedRoute allowedRoles={['user', 'admin']} />}>
-                 <Route path="/mis-pedidos" element={<UserOrdersPage />} />
-                 <Route path="/pedidos/:id" element={<OrderDetailPage />} />
-                 <Route path="/perfil/direcciones" element={<UserAddressesPage />} />
-              </Route>
+                {/* Rutas Protegidas para Usuarios Logueados */}
+                <Route element={<ProtectedRoute allowedRoles={['user', 'admin']} />}>
+                  <Route path="/mis-pedidos" element={<UserOrdersPage />} />
+                  <Route path="/pedidos/:id" element={<OrderDetailPage />} />
+                  <Route path="/perfil/direcciones" element={<UserAddressesPage />} />
+                </Route>
 
-              {/* Rutas Protegidas para Administradores */}
-              <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
-                <Route path="/admin" element={<AdminDashboardPage />} />
-                {/* Rutas de Productos */}
-                <Route path="/admin/productos" element={<AdminProductsPage />} />
-                <Route path="/admin/productos/crear" element={<ProductCreatePage />} />
-                <Route path="/admin/productos/editar/:id" element={<ProductEditPage />} />
-                {/* Rutas de Usuarios */}
-                <Route path="/admin/users" element={<AdminUsersPage />} />
-                <Route path="/admin/users/create" element={<UserFormPage />} />
-                <Route path="/admin/users/edit/:id" element={<UserFormPage />} />
-                {/* Rutas de Ventas */}
-                <Route path="/admin/ventas" element={<AdminSalesPage />} />
-                {/* NUEVA RUTA PARA DETALLES DE VENTA */}
-                <Route path="/admin/ventas/:id" element={<AdminOrderDetailPage />} /> {/* <-- AÑADIDA ESTA RUTA */}
-              </Route>
+                {/* Rutas Protegidas para Administradores */}
+                <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+                  <Route path="/admin" element={<AdminDashboardPage />} />
+                  {/* Rutas de Productos */}
+                  <Route path="/admin/productos" element={<AdminProductsPage />} />
+                  <Route path="/admin/productos/crear" element={<ProductCreatePage />} />
+                  <Route path="/admin/productos/editar/:id" element={<ProductEditPage />} />
+                  {/* Rutas de Usuarios */}
+                  <Route path="/admin/users" element={<AdminUsersPage />} />
+                  <Route path="/admin/users/create" element={<UserFormPage />} />
+                  <Route path="/admin/users/edit/:id" element={<UserFormPage />} />
+                  {/* Rutas de Ventas */}
+                  <Route path="/admin/ventas" element={<AdminSalesPage />} />
+                  {/* NUEVA RUTA PARA DETALLES DE VENTA */}
+                  <Route path="/admin/ventas/:id" element={<AdminOrderDetailPage />} /> {/* <-- AÑADIDA ESTA RUTA */}
+                </Route>
 
-              {/* Ruta para Not Found */}
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </BaseLayout>
+                {/* Ruta para Not Found */}
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </BaseLayout>
+          </CurrencyProvider>
         </CartProvider>
       </AuthProvider>
     </Router>

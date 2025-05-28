@@ -1,10 +1,11 @@
 // frontend/src/services/authService.js
 
 import api from './api';
-import { jwtDecode } from 'jwt-decode'; // Importa jwt-decode
+import { jwtDecode } from 'jwt-decode';
 
 const TOKEN_KEY = 'access_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
+const USER_DATA_KEY = 'user_data'; // Nueva clave para guardar la info del usuario decodificada
 
 const authService = {
   login: async (username, password) => {
@@ -13,9 +14,20 @@ const authService = {
       const { access, refresh } = response.data;
       localStorage.setItem(TOKEN_KEY, access);
       localStorage.setItem(REFRESH_TOKEN_KEY, refresh);
-      // Opcional: decodificar el token para obtener info del usuario si es necesario
-      const user = jwtDecode(access);
-      return user; // Devuelve la información del usuario del token
+
+      // Decodificar el token para extraer información del usuario y guardarla
+      const decodedToken = jwtDecode(access);
+      const userData = {
+        id: decodedToken.user_id,
+        username: decodedToken.username,
+        // *** CAMBIO CLAVE AQUÍ: Leer 'is_admin' del token, no 'is_staff' ***
+        is_admin: decodedToken.is_admin || false,
+        is_active: decodedToken.is_active || false,
+        rol: decodedToken.rol || null, // Si el rol puede ser nulo
+      };
+      localStorage.setItem(USER_DATA_KEY, JSON.stringify(userData)); // Guardar info del usuario
+
+      return userData; // Devuelve la información del usuario al AuthContext
     } catch (error) {
       console.error('Error durante el login:', error.response?.data || error.message);
       throw error;
@@ -25,6 +37,7 @@ const authService = {
   logout: () => {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(REFRESH_TOKEN_KEY);
+    localStorage.removeItem(USER_DATA_KEY); // Limpiar también la info del usuario
   },
 
   getAccessToken: () => {
@@ -40,7 +53,6 @@ const authService = {
     if (!token) return false;
     try {
       const decodedToken = jwtDecode(token);
-      // Comprueba si el token ha expirado
       const currentTime = Date.now() / 1000; // en segundos
       return decodedToken.exp > currentTime;
     } catch (error) {
@@ -48,22 +60,10 @@ const authService = {
     }
   },
 
-  // Opcional: Decodificar y obtener la información del usuario del token
+  // Obtener la información del usuario directamente de localStorage
   getCurrentUser: () => {
-    const token = authService.getAccessToken();
-    if (!token) return null;
-    try {
-      const decodedToken = jwtDecode(token);
-      // Puedes mapear los campos a tu gusto (ej. user_id a id, etc.)
-      return {
-        id: decodedToken.user_id,
-        username: decodedToken.username, // Asume que el username está en el token
-        is_admin: decodedToken.is_staff, // Asume que el is_staff está en el token (lo añadiremos)
-        // ... otros campos que necesites del token
-      };
-    } catch (error) {
-      return null;
-    }
+    const userData = localStorage.getItem(USER_DATA_KEY);
+    return userData ? JSON.parse(userData) : null; // Leer directamente de localStorage
   },
 
   // Opcional: Refrescar el token de acceso
@@ -72,21 +72,33 @@ const authService = {
       const refreshToken = authService.getRefreshToken();
       if (!refreshToken) throw new Error('No refresh token available');
       const response = await api.post('token/refresh/', { refresh: refreshToken });
-      localStorage.setItem(TOKEN_KEY, response.data.access);
-      return response.data.access;
+      const newAccessToken = response.data.access;
+      localStorage.setItem(TOKEN_KEY, newAccessToken);
+
+      // Al refrescar el token, también actualiza la información del usuario si ha cambiado
+      const decodedNewToken = jwtDecode(newAccessToken);
+      const newUserData = {
+        id: decodedNewToken.user_id,
+        username: decodedNewToken.username,
+        // *** CAMBIO CLAVE AQUÍ: Leer 'is_admin' del token, no 'is_staff' ***
+        is_admin: decodedNewToken.is_admin || false,
+        is_active: decodedNewToken.is_active || false,
+        rol: decodedNewToken.rol || null,
+      };
+      localStorage.setItem(USER_DATA_KEY, JSON.stringify(newUserData)); // Actualizar info del usuario
+
+      return newAccessToken;
     } catch (error) {
       console.error('Error refreshing token:', error.response?.data || error.message);
-      authService.logout(); // Si el refresh token también falla, desloguear
+      authService.logout();
       throw error;
     }
   },
-  
+
   register: async (userData) => {
     try {
-      // Envía los datos del usuario al endpoint de registro
       const response = await api.post('register/', userData);
-      // No se espera un token, solo la confirmación de registro
-      return response.data; // Devuelve los datos del usuario creado
+      return response.data;
     } catch (error) {
       console.error('Error durante el registro:', error.response?.data || error.message);
       throw error;

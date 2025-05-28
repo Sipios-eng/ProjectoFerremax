@@ -3,8 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../services/api';
-import { useCart } from '../context/CartContext'; // <-- Importa el hook del carrito
+import { useCart } from '../context/CartContext';
+import { formatCLP, formatUSD } from '../utils/currencyFormatter'; // Asegúrate de que este path sea correcto
 import './ProductDetailPage.css';
+import { useCurrency } from '../context/CurrencyContext'; // Asegúrate de que este path sea correcto
 
 function ProductDetailPage() {
   const { id } = useParams();
@@ -12,15 +14,16 @@ function ProductDetailPage() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [quantity, setQuantity] = useState(1); // Estado para la cantidad a añadir
-  const { addToCart } = useCart(); // Obtén la función para añadir al carrito
+  const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
+  // Obtiene el contexto de moneda
+  const { convertToUsd, displayCurrency, toggleDisplayCurrency, loading: currencyLoading, error: currencyError } = useCurrency(); 
 
   useEffect(() => {
     const fetchProduct = async () => {
       setLoading(true);
       setError(null);
       try {
-        // CAMBIO AQUÍ: 'productos' a 'producto' para que coincida con el backend
         const response = await api.get(`/producto/${id}/`);
         setProduct(response.data);
       } catch (err) {
@@ -34,24 +37,42 @@ function ProductDetailPage() {
   }, [id]);
 
   const handleAddToCart = () => {
-    // Asegúrate de que la cantidad sea válida
-    if (quantity > 0 && product && quantity <= product.cantidad_disponible) { // Añadido 'product &&' para seguridad
+    if (quantity > 0 && product && quantity <= product.cantidad_disponible) {
       addToCart(product.id, quantity);
     } else if (quantity <= 0) {
       alert('La cantidad debe ser al menos 1.');
-    } else if (product && quantity > product.cantidad_disponible) { // Solo si product existe
+    } else if (product && quantity > product.cantidad_disponible) {
       alert(`La cantidad no puede exceder el stock disponible (${product.cantidad_disponible}).`);
     } else {
-      alert('No se pudo añadir el producto. Verifica la cantidad y el stock.'); // Mensaje más general si product es null
+      alert('No se pudo añadir el producto. Verifica la cantidad y el stock.');
+    }
+  };
+
+  // Función para determinar el precio a mostrar y su formato (CLP o USD)
+  const displayPrice = () => {
+    if (!product || currencyLoading) {
+      // Si el producto no ha cargado o la tasa de cambio aún no está lista
+      return 'Cargando...';
+    }
+    
+    // Asegúrate de parsear el precio a flotante antes de usarlo
+    const productPriceFloat = parseFloat(product.precio);
+
+    if (isNaN(productPriceFloat)) {
+      return 'Precio Inválido'; // Manejo de error si el precio no es un número
+    }
+
+    if (displayCurrency === 'CLP') {
+      return formatCLP(productPriceFloat);
+    } else {
+      const usdPrice = convertToUsd(productPriceFloat);
+      return usdPrice !== null ? formatUSD(usdPrice) : 'N/A'; // N/A si la conversión falla
     }
   };
 
   if (loading) return <div className="loading-message">Cargando detalles del producto...</div>;
   if (error) return <div className="error-message">{error}</div>;
   if (!product) return <div className="error-message">Producto no encontrado.</div>;
-
-  const finalPrice = parseFloat(product.precio).toFixed(2);
-  // Aquí podrías calcular precio con impuestos/descuentos si los tienes
 
   return (
     <div className="product-detail-container">
@@ -63,10 +84,22 @@ function ProductDetailPage() {
         <p className="product-detail-brand">Marca: {product.marca_nombre}</p>
         <p className="product-detail-type">Tipo: {product.tipo_producto_nombre}</p>
         <p className="product-detail-description">{product.descripcion}</p>
-        <p className="product-detail-price">Precio: ${finalPrice}</p>
+        
+        {/* Aquí se muestra el precio con el formato y conversión */}
+        <p className="product-detail-price">Precio: {displayPrice()}</p>
+        
+        {/* Botón para cambiar la moneda */}
+        {!currencyLoading && !currencyError && ( // Muestra el botón solo si la API de moneda cargó bien
+          <button onClick={toggleDisplayCurrency} className="btn-toggle-currency">
+            Mostrar en {displayCurrency === 'CLP' ? 'USD' : 'CLP'}
+          </button>
+        )}
+        {currencyError && (
+          <p className="currency-error-message">No se pudo obtener la cotización del dólar.</p>
+        )}
+
         <p className="product-detail-stock">Stock Disponible: {product.cantidad_disponible}</p>
 
-        {/* Input de Cantidad y Botón Añadir al Carrito */}
         <div className="add-to-cart-section">
           <label htmlFor="quantity">Cantidad:</label>
           <input
